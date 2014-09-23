@@ -1,0 +1,43 @@
+Expr := Var
+      | Base
+      | (func Pat Expr* Expr)
+      | (if Expr Expr Expr)
+      | (match Expr Clause Clause*)
+      | (begin Expr*)
+      | 'Symb
+      | (quote Symb) ; = 'Symb
+      | (define Var Expr)
+      | (set! Var Expr)
+      | (apply Expr Expr)
+      | (Expr Expr*) ; This is the last expression.
+
+Var: Char(+, -, *, /, ?, !, _, :, and alpha)
+     Char(Char|Digit)*
+
+Base := Int ; 1, 2, 3, ...
+      | Bool ; #t and #f
+      | Float ; 1.0, 0.1 ...
+      | String ; "balabala"
+
+Clause := (Pat Expr)
+        | (else Expr) ; else is always true
+      
+Symb := Var
+      | Base
+      | ,Expr
+      | ()
+      | (Symb . Symb)
+      | (Symb Symb*) ; = (s1 . (s2 . (s3 . ...())))
+      
+Pat  := _ ; match anything
+      | Var
+      | Base
+      | ,Expr
+      | (? Expr Var)
+      | ()
+      | (Pat . Pat)
+      | (Pat Pat*) ; = (p1 . (p2 . (p3 . ...())))
+     
+;;;
+
+Primitive Procedure: +, -, *, /, iszero?, print
