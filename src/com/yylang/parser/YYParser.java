@@ -9,6 +9,15 @@ public class YYParser implements IYYParser {
 		StringBuffer buffer = new StringBuffer();
 		while (idx < src.length()) {
 			char c = src.charAt(idx);
+			if (c == '(') {
+			
+			} else if (c == ')') {
+				
+			} else if (c == '[') {
+				
+			} else if (c == ']') {
+				
+			}
 			++idx;
 		}
 		return null;
