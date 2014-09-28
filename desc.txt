@@ -1,6 +1,6 @@
 Expr := Var
       | Base<Expr>
-      | (func Pat Expr* Expr)
+      | (func Pat Expr Expr*)
       | (if Expr Expr Expr)
       | (match Expr Clause Clause*)
       | (begin Expr*)
@@ -11,24 +11,28 @@ Expr := Var
       | (apply Expr Expr)
       | (Expr Expr*) ; This is the last expression.
 
-Var: Char(+, -, *, /, ?, !, _, :, ., and alpha)
-     Char(Char|Digit)*
-
 Base<T> := Int ; 1, 2, 3, ...
          | Bool ; #t and #f
          | Float ; 1.0, 0.1 ...
          | String ; "balabala"
          | [T*] ; a list
 
+Int: starts with +, - or digit
+Float: starts with +, -, ., or digit
+Var: Letter(+, -, *, /, ?, !, _, :, ., and alpha)
+     Letter(Letter|Digit)*
+
 Clause := (Pat Expr)
         | (else Expr) ; else is always true
       
-Symb<T> := Var
+Symb<T> := Symbol
          | Base
          | ,T
          | ()
          | (Symb<T> . Symb<T>)
          | (Symb<T> Symb<T>*) ; = (s1 . (s2 . (s3 . ...())))
+
+Symbol: the same as Var
       
 Pat  := _ ; match anything
       | Var

@@ -11,6 +11,20 @@ public class PositionInfo {
 		colnum = 0;
 	}
 	
+	public PositionInfo(String fn, int l, int c) {
+		filename = fn;
+		lineno = l;
+		colnum = c;
+	}
+	
+	@Override
+	public PositionInfo clone() {
+		PositionInfo posInfo = new PositionInfo(filename);
+		posInfo.lineno = lineno;
+		posInfo.colnum = colnum;
+		return posInfo;
+	}
+	
 	public void next() {
 		++colnum;
 	}
